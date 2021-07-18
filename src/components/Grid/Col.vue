@@ -14,6 +14,8 @@ export default class Col extends Vue {
 </script>
 
 <style scoped lang="scss">
+@use "sass:math";
+
 $total: 10;
 .col {
   flex: 0 0 auto;
@@ -22,8 +24,8 @@ $total: 10;
 }
 @for $i from 1 to $total {
   .col-#{$i} {
-    flex: 0 0 percentage($i / $total);
-    max-width: percentage($i / $total);
+    flex: 0 0 percentage(math.div($i, $total));
+    max-width: percentage(math.div($i, $total));
   }
 }
 </style>
