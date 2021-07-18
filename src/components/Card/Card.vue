@@ -1,15 +1,18 @@
 <template>
-  <div class="card" :style="cardWidth">
-    <section :style="setCardImageStyle"></section>
-    <slot></slot>
+  <div class="card" :class="{ row: direction === 'row' }">
+    <section class="card-image-wrapper">
+      <div class="card-image" :style="setCardImageStyle"></div>
+    </section>
+    <section class="content-wrapper">
+      <slot :direction="direction"></slot>
+    </section>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
-import CardContent from "@/components/Card/CardContent.vue";
-import CardFooter from "@/components/Card/CardFooter.vue";
-import { ImageSize } from "@/interfaces/card";
+import { Component, Prop, Vue } from 'vue-property-decorator';
+import CardContent from '@/components/Card/CardContent.vue';
+import CardFooter from '@/components/Card/CardFooter.vue';
 
 @Component({
   components: {
@@ -18,55 +21,52 @@ import { ImageSize } from "@/interfaces/card";
   },
 })
 export default class Card extends Vue {
-  @Prop({ required: true }) imgSrc: string;
-  @Prop({ required: true }) imgAlt: string;
-  @Prop({ default: 160 }) imgWidth: number;
-  @Prop({ default: 160 }) imgHeight: number;
-
-  getOriginImageSize(src: string): Promise<ImageSize> {
-    const img = new Image();
-    img.src = src;
-    return new Promise((resolve) => {
-      img.onload = () =>
-        resolve({
-          width: img.width,
-          height: img.height,
-        });
-    });
-  }
-
-  get setCardImageSize(): ImageSize {
-    const { width, height } = this.getOriginImageSize(this.imgSrc);
-    return width / height > this.imgWidth / this.imgHeight
-      ? { width: this.imgHeight, height: this.imgHeight }
-      : { width: this.imgWidth, height: this.imgWidth };
-  }
+  @Prop({ type: String, required: true }) imgSrc: string;
+  @Prop({ type: String, required: true }) imgAlt: string;
+  @Prop({ type: String, default: 'col' }) direction: 'col' | 'row';
 
   get setCardImageStyle() {
-    const { width, height } = this.setCardImageSize;
     return {
-      background: `url(${this.imgSrc}) no-repeat center`,
-      "background-size": "cover",
-      width: `${width}px`,
-      height: `${height}px`,
+      'background-image': `url(${this.imgSrc})`,
     };
   }
-
-  get cardWidth() {
-    return { width: `${this.setCardImageSize.width}px` };
-  }
-
-  // beforeMount() {
-  //   this.setCardImageSize();
-  // }
 }
 </script>
 
 <style scoped lang="scss">
 .card {
+  display: flex;
+  flex-direction: column;
   border: 1px solid;
   border-radius: 8px;
+  overflow: hidden;
+  .card-footer {
+    border-top: 1px solid;
+  }
+  &.row {
+    flex-direction: row;
+    .card-image-wrapper {
+      max-width: 200px;
+    }
+    .card-footer {
+      display: flex;
+      flex-direction: row;
+      border: none;
+    }
+  }
 }
-img {
+.card-image-wrapper {
+  width: 100%;
+}
+.card-image {
+  padding-top: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 </style>

@@ -1,36 +1,20 @@
 <template>
-  <section>
-    <p>{{ label }}</p>
-    <h2>{{ title }}</h2>
-    <p>{{ hilight }}</p>
+  <section class="card-content">
+    <slot></slot>
   </section>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
+import { Component, Vue } from 'vue-property-decorator';
 
 @Component
-export default class CardContent extends Vue {
-  @Prop({ required: true }) label: string;
-  @Prop({ required: true }) title: string;
-  @Prop({ required: true }) hilight: string;
-}
+export default class CardContent extends Vue {}
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
+.card-content {
+  padding: 12px;
+  text-align: initial;
+  flex: 1;
 }
 </style>
