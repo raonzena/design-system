@@ -1,0 +1,28 @@
+$line-height-base: 1.5;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  line-height: $line-height-base;
+}
+
+#app {
+  padding: 10px;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+}
+
+@mixin line-clamp($lines) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+  word-break: break-all;
+  line-height: $line-height-base;
+  height: $lines * $line-height-base * 1em;
+}
