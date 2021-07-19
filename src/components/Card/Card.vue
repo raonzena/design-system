@@ -3,9 +3,11 @@
     <section class="card-image-wrapper">
       <div class="card-image" :style="setCardImageStyle"></div>
     </section>
-    <section class="content-wrapper">
-      <slot :direction="direction"></slot>
-    </section>
+    <div>
+      <section class="content-wrapper">
+        <slot :direction="direction"></slot>
+      </section>
+    </div>
   </div>
 </template>
 

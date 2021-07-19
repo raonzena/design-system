@@ -14,6 +14,6 @@ export default class CardFooter extends Vue {}
 <style scoped lang="scss">
 .card-footer {
   padding: 12px;
-  text-align: initial;
+  text-align: left;
 }
 </style>

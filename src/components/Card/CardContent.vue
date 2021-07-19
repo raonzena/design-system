@@ -1,7 +1,9 @@
 <template>
-  <section class="card-content">
-    <slot></slot>
-  </section>
+  <div>
+    <section class="card-content">
+      <slot></slot>
+    </section>
+  </div>
 </template>
 
 <script lang="ts">
@@ -14,7 +16,7 @@ export default class CardContent extends Vue {}
 <style scoped lang="scss">
 .card-content {
   padding: 12px;
-  text-align: initial;
+  text-align: left;
   flex: 1;
 }
 </style>
